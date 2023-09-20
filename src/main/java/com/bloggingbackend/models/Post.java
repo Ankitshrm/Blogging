@@ -1,12 +1,16 @@
 package com.bloggingbackend.models;
 
+import com.bloggingbackend.payloads.CommentsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -29,5 +33,8 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private Set<Comments> comments=new HashSet<>();
 
 }
